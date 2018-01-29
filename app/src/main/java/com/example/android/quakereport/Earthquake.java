@@ -17,14 +17,14 @@ public class Earthquake {
     private String earthquakeLocation;
 
     // variable for date
-    private String earthquakeDate;
+    private long earthquakeTimeMs;
 
     // public constructor
-    public Earthquake(String eMag, String eLoc, String eDate){
+    public Earthquake(String eMag, String eLoc, long eTimeMs){
         // Set variables
         earthquakeMagnitude = eMag;
         earthquakeLocation = eLoc;
-        earthquakeDate = eDate;
+        earthquakeTimeMs = eTimeMs;
     }
 
     public String getEarthquakeMagnitude() {
@@ -35,7 +35,7 @@ public class Earthquake {
         return earthquakeLocation;
     }
 
-    public String getEarthquakeDate() {
-        return earthquakeDate;
+    public long getEarthquakeTimeMs() {
+        return earthquakeTimeMs;
     }
 }
