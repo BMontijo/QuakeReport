@@ -16,35 +16,49 @@
         android:paddingRight="16dp"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
-        tools:text="8.9"/>
-
-    <TextView
-        android:id="@+id/location_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingBottom="16dp"
-        android:paddingTop="16dp"
-        tools:text="San Fransisco, CA"/>
+        tools:text="8.9" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingTop="8dp">
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:id="@+id/location_offset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Near the"/>
+
+        <TextView
+            android:id="@+id/primary_location_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="San Fransisco, CA" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp">
 
         <TextView
             android:id="@+id/date_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Mar 6, 2010"/>
+            tools:text="Mar 6, 2010" />
 
         <TextView
             android:id="@+id/time_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="3:00 PM"/>
+            tools:text="3:00 PM" />
 
     </LinearLayout>
 

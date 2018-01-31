@@ -39,8 +39,25 @@ public class EarthquakeInfoAdapter extends ArrayAdapter<Earthquake> {
         TextView magTextView = (TextView) listItemView.findViewById(R.id.magnitude_view);
         magTextView.setText(currentEarthquake.getEarthquakeMagnitude());
 
-        TextView locTextView = (TextView) listItemView.findViewById(R.id.location_view);
-        locTextView.setText(currentEarthquake.getEarthquakeLocation());
+        // format location data
+        String fullLocation = currentEarthquake.getEarthquakeLocation();
+        String locationOffset = "";
+        String primaryLocation = "";
+
+        if (fullLocation.contains("of")) {
+            String[] parts = fullLocation.split("(?<=of )");
+            locationOffset = parts[0];
+            primaryLocation = parts[1];
+        } else {
+            locationOffset = "Near the";
+            primaryLocation = fullLocation;
+        }
+
+        TextView offsetTextView = (TextView) listItemView.findViewById(R.id.location_offset);
+        offsetTextView.setText(locationOffset);
+
+        TextView locTextView = (TextView) listItemView.findViewById(R.id.primary_location_view);
+        locTextView.setText(primaryLocation);
 
         // create date object to make human radable date
         Date dateObj = new Date(currentEarthquake.getEarthquakeTimeMs());
