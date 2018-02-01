@@ -11,7 +11,7 @@ package com.example.android.quakereport;
 
 public class Earthquake {
     // variable for magnitude
-    private String earthquakeMagnitude;
+    private double earthquakeMagnitude;
 
     // variable for location
     private String earthquakeLocation;
@@ -20,14 +20,14 @@ public class Earthquake {
     private long earthquakeTimeMs;
 
     // public constructor
-    public Earthquake(String eMag, String eLoc, long eTimeMs){
+    public Earthquake(double eMag, String eLoc, long eTimeMs){
         // Set variables
         earthquakeMagnitude = eMag;
         earthquakeLocation = eLoc;
         earthquakeTimeMs = eTimeMs;
     }
 
-    public String getEarthquakeMagnitude() {
+    public double getEarthquakeMagnitude() {
         return earthquakeMagnitude;
     }
 

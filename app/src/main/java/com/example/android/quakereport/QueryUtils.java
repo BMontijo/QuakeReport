@@ -51,7 +51,7 @@ public final class QueryUtils {
             for (int i=0; i < jsonArray.length(); i++) {
                 JSONObject jsonObj = jsonArray.getJSONObject(i);
                 JSONObject prop = jsonObj.getJSONObject("properties");
-                String mag = prop.optString("mag");
+                double mag = prop.optDouble("mag");
                 String place = prop.optString("place");
                 long timeInMs = prop.optLong("time");
 
