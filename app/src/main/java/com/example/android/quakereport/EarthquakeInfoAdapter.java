@@ -1,8 +1,10 @@
 package com.example.android.quakereport;
 
 import android.app.Activity;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.text.SimpleDateFormat;
 
 /**
  * Created by Brian on 1/2/2018.
@@ -42,6 +44,11 @@ public class EarthquakeInfoAdapter extends ArrayAdapter<Earthquake> {
         String magDis = magDec.format(currentEarthquake.getEarthquakeMagnitude());
         TextView magTextView = (TextView) listItemView.findViewById(R.id.magnitude_view);
         magTextView.setText(magDis);
+
+        // set magnitude circle color
+        GradientDrawable magnitudeCircle = (GradientDrawable) magTextView.getBackground();
+        int magnitudeColor = getMagnitudeColor(currentEarthquake.getEarthquakeMagnitude());
+        magnitudeCircle.setColor(magnitudeColor);
 
         // format location data
         String fullLocation = currentEarthquake.getEarthquakeLocation();
@@ -84,5 +91,46 @@ public class EarthquakeInfoAdapter extends ArrayAdapter<Earthquake> {
     private String formatTime(Date dateObject) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
         return timeFormat.format(dateObject);
+    }
+
+    private int getMagnitudeColor(double mag) {
+        int magColorID;
+        int magFloor = (int) Math.floor(mag);
+
+        switch (magFloor) {
+            case 0:
+            case 1:
+                magColorID = R.color.magnitude1;
+                break;
+            case 2:
+                magColorID = R.color.magnitude2;
+                break;
+            case 3:
+                magColorID = R.color.magnitude3;
+                break;
+            case 4:
+                magColorID = R.color.magnitude4;
+                break;
+            case 5:
+                magColorID = R.color.magnitude5;
+                break;
+            case 6:
+                magColorID = R.color.magnitude6;
+                break;
+            case 7:
+                magColorID = R.color.magnitude7;
+                break;
+            case 8:
+                magColorID = R.color.magnitude8;
+                break;
+            case 9:
+                magColorID = R.color.magnitude9;
+                break;
+            default:
+                magColorID = R.color.magnitude10plus;
+                break;
+        }
+
+        return ContextCompat.getColor(getContext(), magColorID);
     }
 }
