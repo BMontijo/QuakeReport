@@ -16,4 +16,6 @@
 <resources>
     <string name="app_name">Quake Report</string>
     <string name="near_offset">Near the</string>
+    <!-- Toast text for when user does not have a browser -->
+    <string name="toast_text">No web browser installed.</string>
 </resources>

@@ -7,6 +7,7 @@ package com.example.android.quakereport;
  * - magnitude
  * - location
  * - date
+ * - url
  */
 
 public class Earthquake {
@@ -19,12 +20,17 @@ public class Earthquake {
     // variable for date
     private long earthquakeTimeMs;
 
+    // variable for url
+    private String earthquakeURL;
+
     // public constructor
-    public Earthquake(double eMag, String eLoc, long eTimeMs){
+    public Earthquake(double eMag, String eLoc, long eTimeMs, String eUrl){
         // Set variables
         earthquakeMagnitude = eMag;
         earthquakeLocation = eLoc;
         earthquakeTimeMs = eTimeMs;
+        earthquakeURL = eUrl;
+
     }
 
     public double getEarthquakeMagnitude() {
@@ -37,5 +43,9 @@ public class Earthquake {
 
     public long getEarthquakeTimeMs() {
         return earthquakeTimeMs;
+    }
+
+    public String getEarthquakeURL() {
+        return earthquakeURL;
     }
 }

@@ -54,8 +54,9 @@ public final class QueryUtils {
                 double mag = prop.optDouble("mag");
                 String place = prop.optString("place");
                 long timeInMs = prop.optLong("time");
+                String eUrl = prop.optString("url");
 
-                earthquakes.add(new Earthquake(mag, place, timeInMs));
+                earthquakes.add(new Earthquake(mag, place, timeInMs,eUrl));
             }
 
         } catch (JSONException e) {
