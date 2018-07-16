@@ -25,28 +25,34 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import android.os.*;
+import java.util.*;
 
 public class EarthquakeActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
+	
+	private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+	
+	private EarthquakeInfoAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
-
-        // Pull list of earthquakes.
-        final ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
-
+		
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
 
         // Create a new {@link ArrayAdapter} of earthquakes
-        EarthquakeInfoAdapter adapter = new EarthquakeInfoAdapter(this, earthquakes);
+        mAdapter = new EarthquakeInfoAdapter(this, new ArrayList<Earthquake>());
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
-        earthquakeListView.setAdapter(adapter);
+        earthquakeListView.setAdapter(mAdapter);
+		
+		EarthquakeAsyncTask task = new EarthquakeAsyncTask();
+		task.execute(USGS_REQUEST_URL);
 
         // Set onClick listener to go to earthquake detail web page
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,7 +60,7 @@ public class EarthquakeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // find which earthquake was clicked
-                Earthquake eClicked = earthquakes.get(i);
+                Earthquake eClicked = mAdapter.getItem(i);
 
                 // intent to open earthquake in browser
                 Intent iWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(eClicked.getEarthquakeURL()));
@@ -67,4 +73,31 @@ public class EarthquakeActivity extends AppCompatActivity {
             }
         });
     }
+	
+	private class EarthquakeAsyncTask extends AsyncTask<String, Void, List<Earthquake>>
+	{
+
+		@Override
+		protected List<Earthquake> doInBackground(String... urls)
+		{
+			if (urls.length < 1 || urls[0] == null) {
+				return null;
+			}
+			
+			List<Earthquake> result = QueryUtils.fetchEarthquakeData(urls[0]);
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(List<Earthquake> result)
+		{
+			// clear adapter
+			mAdapter.clear();
+			
+			// if there is a valid list of earthquakes add them
+			if (result != null && !result.isEmpty()) {
+				mAdapter.addAll(result);
+			}
+		}
+	}
 }
