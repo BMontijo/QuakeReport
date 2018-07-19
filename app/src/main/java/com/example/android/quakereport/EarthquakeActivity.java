@@ -24,15 +24,20 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import android.os.*;
 import java.util.*;
+import android.app.*;
+import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Loader;
 
-public class EarthquakeActivity extends AppCompatActivity {
+public class EarthquakeActivity extends AppCompatActivity implements LoaderCallbacks<List<Earthquake>>{
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
 	
 	private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+	
+	private static final int EARTHQUAKE_LOADER_ID = 1;
 	
 	private EarthquakeInfoAdapter mAdapter;
 
@@ -51,8 +56,9 @@ public class EarthquakeActivity extends AppCompatActivity {
         // so the list can be populated in the user interface
         earthquakeListView.setAdapter(mAdapter);
 		
-		EarthquakeAsyncTask task = new EarthquakeAsyncTask();
-		task.execute(USGS_REQUEST_URL);
+		LoaderManager eLoader = getLoaderManager();
+		
+		eLoader.initLoader(EARTHQUAKE_LOADER_ID, null, this);
 
         // Set onClick listener to go to earthquake detail web page
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -73,31 +79,30 @@ public class EarthquakeActivity extends AppCompatActivity {
             }
         });
     }
-	
-	private class EarthquakeAsyncTask extends AsyncTask<String, Void, List<Earthquake>>
+
+	@Override
+	public Loader<List<Earthquake>> onCreateLoader(int p1, Bundle p2)
 	{
+		// create loader
+		return new EarthquakeLoader(this, USGS_REQUEST_URL);
+	}
 
-		@Override
-		protected List<Earthquake> doInBackground(String... urls)
-		{
-			if (urls.length < 1 || urls[0] == null) {
-				return null;
-			}
-			
-			List<Earthquake> result = QueryUtils.fetchEarthquakeData(urls[0]);
-			return result;
-		}
+	@Override
+	public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes)
+	{
+		// clear adapter
+		mAdapter.clear();
 
-		@Override
-		protected void onPostExecute(List<Earthquake> result)
-		{
-			// clear adapter
-			mAdapter.clear();
-			
-			// if there is a valid list of earthquakes add them
-			if (result != null && !result.isEmpty()) {
-				mAdapter.addAll(result);
-			}
+		// if there is a valid list of earthquakes add them
+		if (earthquakes != null && !earthquakes.isEmpty()) {
+			mAdapter.addAll(earthquakes);
 		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<List<Earthquake>> p1)
+	{
+		// clear data
+		mAdapter.clear();
 	}
 }
