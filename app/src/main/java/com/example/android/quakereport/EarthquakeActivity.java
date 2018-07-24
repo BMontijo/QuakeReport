@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.widget.*;
 
 public class EarthquakeActivity extends AppCompatActivity implements LoaderCallbacks<List<Earthquake>>{
 
@@ -39,6 +40,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
 	private static final int EARTHQUAKE_LOADER_ID = 1;
 	
 	private EarthquakeInfoAdapter mAdapter;
+	
+	private TextView mEmptyStateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,13 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
 		
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
+		
+		// find empty state text view
+		mEmptyStateTextView = (TextView) findViewById(R.id.emptyState);
 
+		// set empty state to list view
+		earthquakeListView.setEmptyView(mEmptyStateTextView);
+		
         // Create a new {@link ArrayAdapter} of earthquakes
         mAdapter = new EarthquakeInfoAdapter(this, new ArrayList<Earthquake>());
 
@@ -96,6 +105,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
 		if (earthquakes != null && !earthquakes.isEmpty()) {
 			mAdapter.addAll(earthquakes);
 		}
+		
+		// set empty state text
+		mEmptyStateTextView.setText(getResources().getString((R.string.empty_state)));
 	}
 
 	@Override

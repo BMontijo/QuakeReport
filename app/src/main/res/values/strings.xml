@@ -18,4 +18,6 @@
     <string name="near_offset">Near the</string>
     <!-- Toast text for when user does not have a browser -->
     <string name="toast_text">No web browser installed.</string>
+	<!-- Empty state text for when there are no earthquakes to load -->
+	<string name="empty_state">There are no earthquakes at this time.</string>
 </resources>

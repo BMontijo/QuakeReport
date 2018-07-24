@@ -84,7 +84,7 @@ public class EarthquakeInfoAdapter extends ArrayAdapter<Earthquake> {
     }
 
     private String formatDate(Date dateObject) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL DD, yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
         return dateFormat.format(dateObject);
     }
 
