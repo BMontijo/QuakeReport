@@ -42,6 +42,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
 	private EarthquakeInfoAdapter mAdapter;
 	
 	private TextView mEmptyStateTextView;
+	
+	private ProgressBar mEarthquakeProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
 		
 		// find empty state text view
 		mEmptyStateTextView = (TextView) findViewById(R.id.emptyState);
+		
+		// find progress bar
+		mEarthquakeProgressBar = (ProgressBar) findViewById(R.id.earthquakeProgressBar);
 
 		// set empty state to list view
 		earthquakeListView.setEmptyView(mEmptyStateTextView);
@@ -108,6 +113,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
 		
 		// set empty state text
 		mEmptyStateTextView.setText(getResources().getString((R.string.empty_state)));
+		
+		// hide progress bar
+		mEarthquakeProgressBar.setVisibility(View.GONE);
 	}
 
 	@Override
