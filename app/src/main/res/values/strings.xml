@@ -20,4 +20,6 @@
     <string name="toast_text">No web browser installed.</string>
 	<!-- Empty state text for when there are no earthquakes to load -->
 	<string name="empty_state">There are no earthquakes at this time.</string>
+	<!-- No internet connection text -->
+	<string name="no_connection">No interent connection.</string>
 </resources>

@@ -15,21 +15,15 @@
  */
 package com.example.android.quakereport;
 
-import android.app.LoaderManager;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.Intent;
-import android.content.Loader;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.app.*;
+import android.app.LoaderManager.*;
+import android.content.*;
+import android.net.*;
+import android.os.*;
+import android.support.v7.app.*;
+import android.view.*;
 import android.widget.*;
+import java.util.*;
 
 public class EarthquakeActivity extends AppCompatActivity implements LoaderCallbacks<List<Earthquake>>{
 
@@ -69,9 +63,17 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
         // so the list can be populated in the user interface
         earthquakeListView.setAdapter(mAdapter);
 		
-		LoaderManager eLoader = getLoaderManager();
+		// connection manager
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
+		if (ni!=null && ni.isConnected()) {
+			LoaderManager eLoader = getLoaderManager();
 		
-		eLoader.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+			eLoader.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+		} else {
+			mEarthquakeProgressBar.setVisibility(View.GONE);
+			mEmptyStateTextView.setText(getResources().getString(R.string.no_connection));
+		}
 
         // Set onClick listener to go to earthquake detail web page
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

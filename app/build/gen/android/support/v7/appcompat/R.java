@@ -2094,6 +2094,9 @@ containing a value of this type.
          */
         public static final int empty_state=0x7f060024;
         public static final int near_offset=0x7f060022;
+        /**  No internet connection text 
+         */
+        public static final int no_connection=0x7f060025;
         public static final int search_menu_title=0x7f060013;
         public static final int status_bar_notification_info_overflow=0x7f060014;
         /**  Toast text for when user does not have a browser 
