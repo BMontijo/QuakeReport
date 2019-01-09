@@ -22,4 +22,8 @@
 	<string name="empty_state">There are no earthquakes at this time.</string>
 	<!-- No internet connection text -->
 	<string name="no_connection">No interent connection.</string>
+	<!-- Menu entry for settings -->
+	<string name="menu_settings">Settings</string>
+	<!-- Settings title -->
+	<string name="title_settings">Earthquake Settings</string>
 </resources>

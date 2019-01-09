@@ -2052,7 +2052,8 @@ containing a value of this type.
         public static final int select_dialog_item_material=0x7f04002c;
         public static final int select_dialog_multichoice_material=0x7f04002d;
         public static final int select_dialog_singlechoice_material=0x7f04002e;
-        public static final int support_simple_spinner_dropdown_item=0x7f04002f;
+        public static final int settings_activity=0x7f04002f;
+        public static final int support_simple_spinner_dropdown_item=0x7f040030;
     }
     public static final class mipmap {
         public static final int ic_launcher=0x7f030000;
@@ -2093,12 +2094,18 @@ containing a value of this type.
         /**  Empty state text for when there are no earthquakes to load 
          */
         public static final int empty_state=0x7f060024;
+        /**  Menu entry for settings 
+         */
+        public static final int menu_settings=0x7f060026;
         public static final int near_offset=0x7f060022;
         /**  No internet connection text 
          */
         public static final int no_connection=0x7f060025;
         public static final int search_menu_title=0x7f060013;
         public static final int status_bar_notification_info_overflow=0x7f060014;
+        /**  Settings title 
+         */
+        public static final int title_settings=0x7f060027;
         /**  Toast text for when user does not have a browser 
          */
         public static final int toast_text=0x7f060023;
