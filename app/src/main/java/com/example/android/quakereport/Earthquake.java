@@ -10,7 +10,9 @@ package com.example.android.quakereport;
  * - url
  */
 
-public class Earthquake {
+public class
+
+Earthquake {
     // variable for magnitude
     private double earthquakeMagnitude;
 
