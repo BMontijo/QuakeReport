@@ -15,21 +15,35 @@
  */
 package com.example.android.quakereport;
 
-import android.app.*;
-import android.app.LoaderManager.*;
-import android.content.*;
-import android.net.*;
-import android.os.*;
-import android.support.v7.app.*;
-import android.view.*;
-import android.widget.*;
-import java.util.*;
+import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
+import android.content.Intent;
+import android.content.Loader;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EarthquakeActivity extends AppCompatActivity implements LoaderCallbacks<List<Earthquake>>{
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
 	
-	private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+	private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
 	
 	private static final int EARTHQUAKE_LOADER_ID = 1;
 	
@@ -96,10 +110,20 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
     }
 
 	@Override
-	public Loader<List<Earthquake>> onCreateLoader(int p1, Bundle p2)
+	public Loader<List<Earthquake>> onCreateLoader(int i, Bundle bundle)
 	{
 		// create loader
-		return new EarthquakeLoader(this, USGS_REQUEST_URL);
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		String minMagnitude = sharedPrefs.getString(getString(R.string.min_mag_key_settings), getString(R.string.min_mag_default_settings));
+		Uri baseUri = Uri.parse(USGS_REQUEST_URL);
+		Uri.Builder uriBuilder = baseUri.buildUpon();
+
+		uriBuilder.appendQueryParameter("format", "geojson");
+		uriBuilder.appendQueryParameter("limit", "0");
+		uriBuilder.appendQueryParameter("minmag", minMagnitude);
+		uriBuilder.appendQueryParameter("orderby", "time");
+
+		return new EarthquakeLoader(this, uriBuilder.toString());
 	}
 
 	@Override
