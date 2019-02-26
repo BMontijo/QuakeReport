@@ -28,6 +28,6 @@
 	<string name="title_settings">Earthquake Settings</string>
     <!-- Settings minimum magnitude strings -->
     <string name="min_mag_label_settings">Minimum Magnitude</string>
-    <string name="min_mag_key_settings" translatable="false">min_mag</string>
+    <string name="min_mag_key_settings" translatable="false">min_magnitude</string>
     <string name="min_mag_default_settings" translatable="false">6</string>
 </resources>

@@ -27,6 +27,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -115,13 +116,18 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
 		// create loader
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String minMagnitude = sharedPrefs.getString(getString(R.string.min_mag_key_settings), getString(R.string.min_mag_default_settings));
+
+		Log.i(LOG_TAG, minMagnitude);
+
 		Uri baseUri = Uri.parse(USGS_REQUEST_URL);
 		Uri.Builder uriBuilder = baseUri.buildUpon();
 
 		uriBuilder.appendQueryParameter("format", "geojson");
-		uriBuilder.appendQueryParameter("limit", "0");
+		uriBuilder.appendQueryParameter("limit", "10");
 		uriBuilder.appendQueryParameter("minmag", minMagnitude);
 		uriBuilder.appendQueryParameter("orderby", "time");
+
+		Log.i(LOG_TAG, uriBuilder.toString());
 
 		return new EarthquakeLoader(this, uriBuilder.toString());
 	}
