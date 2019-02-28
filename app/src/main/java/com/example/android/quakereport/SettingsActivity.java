@@ -22,6 +22,9 @@ public class SettingsActivity extends AppCompatActivity
 
 			Preference minMagnitude = findPreference(getString(R.string.min_mag_key_settings));
 			bindPreferenceToValue(minMagnitude);
+
+			Preference orderBy = findPreference(getString(R.string.order_by_key_settings));
+			bindPreferenceToValue(orderBy);
 		}
 
 		private void bindPreferenceToValue(Preference minMagnitude) {
@@ -34,7 +37,16 @@ public class SettingsActivity extends AppCompatActivity
 		@Override
 		public boolean onPreferenceChange(Preference preference, Object value) {
 			String stringValue = value.toString();
-			preference.setSummary(stringValue);
+			if (preference instanceof ListPreference) {
+				ListPreference listPreference = (ListPreference) preference;
+				int prefIndex = listPreference.findIndexOfValue(stringValue);
+				if (prefIndex >= 0) {
+					CharSequence[] labels = listPreference.getEntries();
+					preference.setSummary(labels[prefIndex]);
+				}
+			} else {
+				preference.setSummary(stringValue);
+			}
 			return true;
 		}
 	}

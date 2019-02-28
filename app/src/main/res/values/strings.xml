@@ -30,4 +30,14 @@
     <string name="min_mag_label_settings">Minimum Magnitude</string>
     <string name="min_mag_key_settings" translatable="false">min_magnitude</string>
     <string name="min_mag_default_settings" translatable="false">6</string>
+    <!-- Strings for Order By preference -->
+    <string name="order_by_settings">Order by</string>
+    <string name="order_by_key_settings" translatable="false">order_by</string>
+    <string name="order_by_default_settings" translatable="false">@string/order_by_magnitude_value_settings</string>
+    <!-- Strings for Order By Magnitude preference -->
+    <string name="order_by_magnitude_label_settings">Magnitude</string>
+    <string name="order_by_magnitude_value_settings" translatable="false">magnitude</string>
+    <!-- Strings for Order By Most Recent preference -->
+    <string name="order_by_recent_label_settings">Most Recent</string>
+    <string name="order_by_recent_value_settings" translatable="false">time</string>
 </resources>

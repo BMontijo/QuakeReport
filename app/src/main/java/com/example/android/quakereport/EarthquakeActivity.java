@@ -116,13 +116,15 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
 		// create loader
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String minMagnitude = sharedPrefs.getString(getString(R.string.min_mag_key_settings), getString(R.string.min_mag_default_settings));
+		String orderBy = sharedPrefs.getString(getString(R.string.order_by_key_settings), getString(R.string.order_by_default_settings));
+
         Uri baseUri = Uri.parse(USGS_REQUEST_URL);
 		Uri.Builder uriBuilder = baseUri.buildUpon();
 
 		uriBuilder.appendQueryParameter("format", "geojson");
 		uriBuilder.appendQueryParameter("limit", "10");
 		uriBuilder.appendQueryParameter("minmag", minMagnitude);
-		uriBuilder.appendQueryParameter("orderby", "time");
+		uriBuilder.appendQueryParameter("orderby", orderBy);
 		return new EarthquakeLoader(this, uriBuilder.toString());
 	}
 

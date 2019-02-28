@@ -2,6 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/title_settings">
 
+    <ListPreference
+        android:defaultValue="@string/order_by_default_settings"
+        android:entries="@array/settings_order_by_labels"
+        android:entryValues="@array/settings_order_by_values"
+        android:key="@string/order_by_key_settings"
+        android:title="@string/order_by_settings" />
+
     <EditTextPreference
         android:defaultValue="@string/min_mag_default_settings"
         android:inputType="numberDecimal"
